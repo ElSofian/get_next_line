@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/13 10:25:39 by soelalou          #+#    #+#             */
-/*   Updated: 2023/11/13 17:26:45 by soelalou         ###   ########.fr       */
+/*   Created: 2023/11/14 17:30:41 by soelalou          #+#    #+#             */
+/*   Updated: 2023/11/14 17:35:07 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,8 @@
 #  define BUFFER_SIZE 5
 # endif
 
-char	*initialize(int fd, char **tmp);
+int		ft_strlen(char *str);
+char	*ft_strdup(char *str);
 char	*get_next_line(int fd);
-char	*ft_strjoin(char const *s1, char const *s2);
-char	*ft_strchr(const char *s, int c);
-char	*ft_strdup(const char *s1);
-size_t	ft_strlen(const char *s);
 
 #endif

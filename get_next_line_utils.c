@@ -5,75 +5,41 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/13 10:35:58 by soelalou          #+#    #+#             */
-/*   Updated: 2023/11/13 11:43:23 by soelalou         ###   ########.fr       */
+/*   Created: 2023/11/14 17:32:30 by soelalou          #+#    #+#             */
+/*   Updated: 2023/11/14 17:32:35 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_strchr(const char *s, int c)
+int	ft_strlen(char *str)
 {
-	while (*s)
-	{
-		if (*s == (char)c)
-			return ((char *)s);
-		s++;
-	}
-	return (NULL);
-}
-
-size_t	ft_strlen(const char *s)
-{
-	size_t	len;
-
-	len = 0;
-	while (s[len])
-		len++;
-	return (len);
-}
-
-char	*ft_strjoin(char const *s1, char const *s2)
-{
-	char	*str;
-	char	*result;
-
-	if (!s1 || !s2)
-		return (NULL);
-	str = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (!str)
-		return (NULL);
-	result = str;
-	while (*s1)
-	{
-		*str = *s1;
-		str++;
-		s1++;
-	}
-	while (*s2)
-	{
-		*str = *s2;
-		str++;
-		s2++;
-	}
-	*str = '\0';
-	return (result);
-}
-
-char	*ft_strdup(const char *s)
-{
-	int		i;
-	char	*cpy;
+	int	i;
 
 	i = 0;
-	cpy = (char *)malloc(sizeof(char) * ft_strlen(s) + 1);
-	if (!cpy)
+	if (!str)
+		return (0);
+	while (str[i])
+		i++;
+	return (i);
+}
+
+char	*ft_strdup(char *str)
+{
+	int		i;
+	char	*new;
+
+	i = 0;
+	if (!str)
 		return (NULL);
-	while (s[i])
+	new = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1));
+	if (!new)
+		return (NULL);
+	while (str[i])
 	{
-		cpy[i] = s[i];
+		new[i] = str[i];
 		i++;
 	}
-	cpy[i] = '\0';
-	return (cpy);
+	new[i] = '\0';
+	return (new);
 }
