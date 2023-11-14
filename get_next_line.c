@@ -6,63 +6,92 @@
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 17:30:22 by soelalou          #+#    #+#             */
-/*   Updated: 2023/11/14 17:41:13 by soelalou         ###   ########.fr       */
+/*   Updated: 2023/11/14 18:27:33 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*get_next_line(int fd)
+char	*initialize(int fd, char *buf, char *backup)
 {
-	char	buffer;
-	char	line[7000000];
-	int		b;
-	int		i;
+	int		readed;
+	char	*tmp;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (NULL);
-	i = 0;
-	b = read(fd, &buffer, 1);
-	while (b > 0)
+	readed = 1;
+	while (readed != '\0')
 	{
-		line[i++] = buffer;
-		if (buffer == '\n')
+		readed = read(fd, buf, BUFFER_SIZE);
+		if (readed == -1)
+			return (NULL);
+		else if (readed == 0)
 			break ;
-		b = read(fd, &buffer, 1);
+		buf[readed] = '\0';
+		if (!backup)
+			backup = ft_strdup("");
+		tmp = backup;
+		backup = ft_strjoin(tmp, buf);
+		free(tmp);
+		tmp = NULL;
+		if (ft_strchr(buf, '\n'))
+			break ;
 	}
-	line[i] = '\0';
-	if (b <= 0 && i == 0)
-		return (NULL);
-	return (ft_strdup(line));
+	return (backup);
 }
 
-// int	main(void)
-// {
-// 	char	*line;
-// 	int		i;
-// 	int		fd1;
-// 	int		fd2;
-// 	int		fd3;
+char	*extract(char *line)
+{
+	size_t	count;
+	char	*backup;
 
-// 	fd1 = open("file.txt", O_RDONLY);
-// 	fd2 = open("file2.txt", O_RDONLY);
-// 	fd3 = open("file3.txt", O_RDONLY);
-// 	i = 1;
-// 	while (i < 4)
-// 	{
-// 		line = get_next_line(fd1);
-// 		printf("line [%02d]: %s", i, line);
-// 		free(line);
-// 		line = get_next_line(fd2);
-// 		printf("line [%02d]: %s", i, line);
-// 		free(line);
-// 		line = get_next_line(fd3);
-// 		printf("line [%02d]: %s", i, line);
-// 		free(line);
-// 		i++;
-// 	}
-// 	close(fd1);
-// 	close(fd2);
-// 	close(fd3);
-// 	return (0);
-// }
+	count = 0;
+	while (line[count] != '\n' && line[count] != '\0')
+		count++;
+	if (line[count] == '\0' || line[1] == '\0')
+		return (0);
+	backup = ft_substr(line, count + 1, ft_strlen(line) - count);
+	if (*backup == '\0')
+	{
+		free(backup);
+		backup = NULL;
+	}
+	line[count + 1] = '\0';
+	return (backup);
+}
+
+char	*get_next_line(int fd)
+{
+	char		*line;
+	char		*buf;
+	static char	*backup;
+
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (0);
+	buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buf)
+		return (0);
+	line = initialize(fd, buf, backup);
+	free(buf);
+	buf = NULL;
+	if (!line)
+		return (NULL);
+	backup = extract(line);
+	return (line);
+}
+
+int	main(void)
+{
+	int		fd;
+	char	*line;
+
+	fd = open("file.txt", O_RDONLY);
+	while (1)
+	{
+		line = get_next_line(fd);
+		if (!line)
+			break ;
+		printf("%s", line);
+		free(line);
+	}
+	close(fd);
+	return (0);
+}
