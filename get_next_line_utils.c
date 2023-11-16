@@ -6,7 +6,7 @@
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 17:32:30 by soelalou          #+#    #+#             */
-/*   Updated: 2023/11/14 18:26:01 by soelalou         ###   ########.fr       */
+/*   Updated: 2023/11/16 10:46:33 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_strlen(const char *str)
 
 	i = 0;
 	if (!str)
-		return (0);
+		return (NULL);
 	while (str[i])
 		i++;
 	return (i);

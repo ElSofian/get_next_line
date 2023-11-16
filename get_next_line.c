@@ -6,7 +6,7 @@
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 17:30:22 by soelalou          #+#    #+#             */
-/*   Updated: 2023/11/14 18:30:40 by soelalou         ###   ########.fr       */
+/*   Updated: 2023/11/16 10:46:14 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*extract(char *line)
 	while (line[i] != '\n' && line[i] != '\0')
 		i++;
 	if (line[i] == '\0' || line[1] == '\0')
-		return (0);
+		return (NULL);
 	save = ft_substr(line, i + 1, ft_strlen(line) - i);
 	if (*save == '\0')
 	{
@@ -64,11 +64,11 @@ char	*get_next_line(int fd)
 	char		*buf;
 	static char	*save;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (0);
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &buf, 0) < 0)
+		return (NULL);
 	buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buf)
-		return (0);
+		return (NULL);
 	line = initialize(fd, buf, save);
 	free(buf);
 	buf = NULL;
