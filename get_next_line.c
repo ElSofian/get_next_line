@@ -6,7 +6,7 @@
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 17:30:22 by soelalou          #+#    #+#             */
-/*   Updated: 2023/11/16 18:22:03 by soelalou         ###   ########.fr       */
+/*   Updated: 2023/11/23 12:45:09 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ char	*get_next_line(int fd)
 // {
 // 	int		fd;
 // 	char	*line;
-
+// 
 // 	fd = open("file.txt", O_RDONLY);
 // 	while (1)
 // 	{
