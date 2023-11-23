@@ -6,19 +6,17 @@
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 17:32:30 by soelalou          #+#    #+#             */
-/*   Updated: 2023/11/16 10:46:33 by soelalou         ###   ########.fr       */
+/*   Updated: 2023/11/23 12:41:17 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int	ft_strlen(const char *str)
+size_t	ft_strlen(const char *str)
 {
 	int	i;
 
 	i = 0;
-	if (!str)
-		return (NULL);
 	while (str[i])
 		i++;
 	return (i);
